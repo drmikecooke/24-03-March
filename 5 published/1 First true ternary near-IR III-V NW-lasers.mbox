@@ -1,0 +1,241 @@
+From Gregor.Koblmueller@wsi.tum.de Sat Mar  9 08:25:01 2024
+Delivered-To: drmikecooke@gmail.com
+Received: by 2002:a05:7022:41:b0:75:d657:70a0 with SMTP id 1csp269223dlw;
+        Sat, 9 Mar 2024 08:25:01 -0800 (PST)
+X-Google-Smtp-Source:
+ AGHT+IHaqoic2iwl5+Mqo67dcz6jTFT9ie5rZ1vi5Oe6Ky/trOwfpw4YkXAC5G8F15JXdvI793HI
+X-Received: by 2002:ad4:56f4:0:b0:690:c11b:a093 with SMTP id
+ cr20-20020ad456f4000000b00690c11ba093mr1882630qvb.21.1710001501095; Sat, 09
+ Mar 2024 08:25:01 -0800 (PST)
+ARC-Seal: i=2; a=rsa-sha256; t=1710001501; cv=pass; d=google.com;
+ s=arc-20160816;
+ b=FulBGnh99upuh8CJu0Z0nGVzd1DfGE/e5/vwl1zk/ERBztPlUuFnBnpd/T4IF1kYze
+ osZsSmHtI5EUdUb4eOqdBfmi+N6PZvBASJRYkacmCo887Rq71GkdO2l6m+p43JXLEJfx
+ 4VzXl8s6X+kRaUhIdx83UtyhG+h3nw+3zaLdBd/37K9cik2OvpLVJ7ynbjCoR6Vo5r+d
+ CH7KTnL87BnxppVeUw388YgYoXUd5rPepYZ+g2D+cbT33PwRsLt6an1O19auYwAjqQXd
+ UF/PN9BFQU17Olg4YB3GF0/Hl7vlf2Eui9H7DUU7F0e0WymVRMOexRNm/Fs73/39+um1 iR8w==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20160816; h=mime-version:content-language:accept-language:in-reply-to
+ :references:message-id:date:thread-index:thread-topic:subject:to
+ :from:dkim-signature; bh=mKApiW3RlbFFmlekO96SlrpTLaMeWfBYok0aGM9pbPY=;
+ fh=H3yTeRIVPs4UI081X1FDD31p6B1GE6ZhgvQwvNNVlNo=;
+ b=XAk8veJq1YvCB6nqgKlhlF2zscVB3XG1OWiiJZXNxZaR2HovbaA5OrIcgg0j2aRCp6
+ UHJdZitT4HSZoo3xDGEh7t1UH9kLInlrlGpRT9g6xB3PO5b1mf3nsU43vLlDu+0Z9QW0
+ vhuMV54QufE5YAMUFKUYDbAF7dpShKvW1Kf3eFmueusKQHOKK4iKYjMdDvwjsayvw0OJ
+ g0oT0jC2OoXfgMauER46vc7KPc7xRinSPreBPvXCuFGKULbaMqXBNggQRm5/InKX4bIk
+ 8ExNpRtFTBWreC4XWY7sZqBIN4p/7jpZXU5XmSybWXdoOaG/R627Mt9M7NHinpqojX2N
+ g8Bg==; dara=google.com
+ARC-Authentication-Results: i=2; mx.google.com; dkim=pass
+ header.i=@wsi.tum.de header.s=selector1 header.b=R5sKXmSo; arc=pass (i=1
+ spf=pass spfdomain=wsi.tum.de dkim=pass dkdomain=wsi.tum.de dmarc=pass
+ fromdomain=wsi.tum.de); spf=pass (google.com: domain of
+ gregor.koblmueller@wsi.tum.de designates 2a01:111:f403:260e::700 as
+ permitted sender) smtp.mailfrom=Gregor.Koblmueller@wsi.tum.de; dmarc=pass
+ (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=wsi.tum.de
+Return-Path: <Gregor.Koblmueller@wsi.tum.de>
+Received: from EUR03-AM7-obe.outbound.protection.outlook.com
+ (mail-am7eur03on20700.outbound.protection.outlook.com.
+ [2a01:111:f403:260e::700]) by mx.google.com with ESMTPS id
+ q12-20020a05621419ec00b0069040aab6a1si1848421qvc.56.2024.03.09.08.25.00 for
+ <drmikecooke@gmail.com> (version=TLS1_2
+ cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128); Sat, 09 Mar 2024
+ 08:25:00 -0800 (PST)
+Received-SPF: pass (google.com: domain of gregor.koblmueller@wsi.tum.de
+ designates 2a01:111:f403:260e::700 as permitted sender)
+ client-ip=2a01:111:f403:260e::700;
+Authentication-Results: mx.google.com; dkim=pass header.i=@wsi.tum.de
+ header.s=selector1 header.b=R5sKXmSo; arc=pass (i=1 spf=pass
+ spfdomain=wsi.tum.de dkim=pass dkdomain=wsi.tum.de dmarc=pass
+ fromdomain=wsi.tum.de); spf=pass (google.com: domain of
+ gregor.koblmueller@wsi.tum.de designates 2a01:111:f403:260e::700 as
+ permitted sender) smtp.mailfrom=Gregor.Koblmueller@wsi.tum.de; dmarc=pass
+ (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=wsi.tum.de
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dYK6mWLd3KdGgqypJrEp+MglJMjZ2MSsCite6dcremykC7s68yY/Q70dQR9+Xo/tWGG7npZnw6fAURIG6d4oyMr3onm10VkOEPVXOGd78G+7day6o1S+7HQiyJz0YODbeP9ZilVudFlXYGI+xbsYscUoYwj3WUXEV9pno2nNfj0VGiNB26fFnRUxasiRqkOdU6fYIImOCb+3z+VSmTrQsNq8IyUSkdhrlC99UOa0Z09vBGR69k2ZEnSvtKvyYqgoIndgrHYXeiiCbDBzHCfAgDxhs4+wUfnLBoppLS3AVQH58OGc8kIvPV5/sr5WIFWGG3Lyyb0pgT7XkLEWeMW6PQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=microsoft.com; s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mKApiW3RlbFFmlekO96SlrpTLaMeWfBYok0aGM9pbPY=;
+ b=H7V2oc2jiN1ElNKl4ZsLKqEfR2giAPnaYcmhnPcOVU9hGm7Fdzqueenwl8cGi9iOFGytRAuJt9mBCtkYHF7qEG9bG26Ooi4cMovq/ABhMyU6rEx4fOZ9lxc0GFUQMA+jud4qnT9idrbCpSiqZl0cRCJglAi1M3E+DSjSupPMQjgTIwrYpLgGmW91f3gqqzFo5ZgvwWQOPYAYQ/lIDKXaLNRPIXKEdyfEY0a/7YHfAfY0p9mZc2ZjRbKhxD42lH30UBcbQQJIYCxNl3A3V5AzJNS6XFlcaoCyWn5CeVtHtGLi1z8FLjF5AzQLTi8gdXi9DkG3Q2hDM3Wv+V0/eOIf8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=wsi.tum.de; dmarc=pass action=none header.from=wsi.tum.de;
+ dkim=pass header.d=wsi.tum.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wsi.tum.de;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mKApiW3RlbFFmlekO96SlrpTLaMeWfBYok0aGM9pbPY=;
+ b=R5sKXmSoiEFWg9NqNvx9cmb4IHpHh1GECg1o8NdUB2CZFQVnQsyILK7nBlYH+gvzvRdOR6u/ljjxt8qvqpvuXb0Vfp8jATJwIZLsnKeKs0zmpfjI99mUhLBXz46LBNSvLuNkMsHJB3F6KNj4xRnxfYCOGkWuHAf2CSFk8bIdmpo=
+Received: from PA4PR04MB9223.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a2::15) by DU0PR04MB9696.eurprd04.prod.outlook.com
+ (2603:10a6:10:314::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.31; Sat, 9 Mar
+ 2024 16:24:58 +0000
+Received: from PA4PR04MB9223.eurprd04.prod.outlook.com
+ ([fe80::fb16:9bac:de10:5701]) by PA4PR04MB9223.eurprd04.prod.outlook.com
+ ([fe80::fb16:9bac:de10:5701%6]) with mapi id 15.20.7362.019; Sat, 9 Mar
+ 2024 16:24:57 +0000
+From: Koblmueller Gregor <Gregor.Koblmueller@wsi.tum.de>
+To: Mike Cooke <drmikecooke@gmail.com>
+Subject: Re: Low-threshold single ternary GaAsSb nanowire lasers emitting
+ at silicon transparent wavelengths
+Thread-Topic: Low-threshold single ternary GaAsSb nanowire lasers emitting
+ at silicon transparent wavelengths
+Thread-Index: AQHabOWVHD8cnkml20G9nfXVboXfurEvoq6O
+Date: Sat, 9 Mar 2024 16:24:57 +0000
+Message-ID:
+ <PA4PR04MB922315D29F8BB69CD59033E2BE262@PA4PR04MB9223.eurprd04.prod.outlook.com>
+References: <18e8bcfc06f58b03944d1e64d38e2f1c9951a175.camel@gmail.com>
+In-Reply-To: <18e8bcfc06f58b03944d1e64d38e2f1c9951a175.camel@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=wsi.tum.de;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PA4PR04MB9223:EE_|DU0PR04MB9696:EE_
+x-ms-office365-filtering-correlation-id:
+ d82d6c9e-028f-421b-9951-08dc40557610
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ ncLCyU5e9LHZcdp+Ap0JRhT+ILcTOlUMvO+G7q3W2bvV7ACpyCbT1sHiVFno1SNJ5BKMeEjBGuuXULzvJHhPC4GcHhuSbF9CrUi39JPjZ1GkQlZO2R5xhSisHrHGSFN4j7MIiiJ6b7FBURz+Z/EnzgpI71daKU0Wd4nQc1XGqLXuAC2Om6LX0JJLJD16qG78xv5/pJ1CP02/qC8wka9Exr4n/NJXDEsd9ee+2ATOmIfItF6SLqXXFe8iUJGp06C4XRDCwvDSp8fFbyvuyjMNhNO+JztWYio+BU/LDbqmMqRf1Ndh/dbBQYJVvZmYlz6Hm8tn9GWDx33ewTyto4/ZP03sVmnzada8g3StP0Izsy5Anm4kC0T/U/5p0PlpxE4l1sHFDgPJLLiURXL66al+AG61gGH4Wpq5AJ8CLgqFo6HcfwTYZwPTTwLE15wyXlfE8mxWd24XWiW8NTz/OAXCFRUAIG7HvKdqEEEU+Jm2jA096cSifoJrbQ90Zac36J4tmtUUBroKGZt/BeiUReup050oZHkbdZrQ9E1JzqBZeo/xtbOdhcrblHwX9KP6sNOvxVZRw0kXRfK6AzpFSS9dpHFFbJuPTtCs54z7IgsBUfvWwKdOOQ//hFQ8F9GsbytOhZdzOaEd/YmnaWKQOooR1D6mxIUkt+s47MKloTqQA4k=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9223.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(1800799015)(376005)(41320700004)(38070700009);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?xJnCx2wt8BbrMQ/jkUsTuj/A47EaHGPsMkLeOoQq9THBWoyB90qhsPJvU7?=
+ =?iso-8859-1?Q?hmm+TMHsCI1z+PgjlEP6VRfCyTiQehWQPgXB8je32IV532p0T+dAubI1oR?=
+ =?iso-8859-1?Q?SG/LbRZVSBHzMFHXirgoVQ10xeYk4qMe88B7JDB9ZwyaVIQ/kJHoE02H8s?=
+ =?iso-8859-1?Q?6PlORBNe6wV2rj20TKoglkC9TPjuEGo6MMwdQcUdtu2J+xXEZKwbwrcliB?=
+ =?iso-8859-1?Q?BmDLp9tf2UWWXuyqbB5FwYZvOKj0A/g0JNV/5glOLKz8d0HN/lo6gwFEGs?=
+ =?iso-8859-1?Q?6RkYx/H/y1LgfKLY7R7KG3+BenjmqBCS0Q6y3FQWpOJYEkQpDcr+DR1yYf?=
+ =?iso-8859-1?Q?RHRkA5VqBN4FSmfvx5Ef62KWi1zMCE8U13KgI1uY5SjRPpzdXWDWFWFguk?=
+ =?iso-8859-1?Q?LrjjyA9EpAYzeJyaunCLMqOquqcqoXeLmLnlmNzS02wx2m4OznIPwM0+wn?=
+ =?iso-8859-1?Q?LxvSKtE/N1f8f+d++Hl6KN3V4SSNMXlODNT5WeNKOSSMvG9ZYzZ1UBEHX9?=
+ =?iso-8859-1?Q?7Rz0BZaxlN+KSnH6amJXxjQAe7efz6rQRNqCUKh8Li43VHKMIvD5WOFBaC?=
+ =?iso-8859-1?Q?IwQC7A4w1c2JGRXjEu4OVpwOj5kFCdM3STUqXpJAvW1py79ynPI+H+GDuv?=
+ =?iso-8859-1?Q?uANW5s3LJvjSC1PLVOlh0ApTJJsQwOh7RRildvSnqDvqz4xC1W5kSvDpvr?=
+ =?iso-8859-1?Q?TAMIhoJ13H1YCU6hSnyOqwRqJnVCu9tF1i8hCrsEN9XWAbMVYYNdQtGQ8U?=
+ =?iso-8859-1?Q?dx8GNLh4s3adCxtjnnuI9wV98wEaGYDnWDBSPm9lCkEpuqUa06narN036M?=
+ =?iso-8859-1?Q?lhZe9zMpsRpxjM17ImnN8VPgJ4Yz9y3FVQ8ROfdCiAnhNuR3n4kPN3ld3l?=
+ =?iso-8859-1?Q?2xR0w8NffzUy+2CoxTlxoTHYUxiskLO3HyBa5qMsFZ0gAsSEQfSqRD88Xv?=
+ =?iso-8859-1?Q?+v4CgVu6ocgKfqHlQ+gd1qbKUYV89kqriszFGhbxdPiywJdhG0Uj/wLBNT?=
+ =?iso-8859-1?Q?shMOBOQ3x7FW+2LmT5IMs2nPiiSnSdc7TZup6PBfZglvMM8uDuUVmEilLC?=
+ =?iso-8859-1?Q?vdDEBFPrPOxejW5HmahyCg6ODAxc70HfcgCl7qMg2VtqB5CA5T2gMCRtEm?=
+ =?iso-8859-1?Q?oT3a6li36ceeRNTaRT2pNwz8IhVwpY1tRG3kLvRzulH45O0ZqXgEBAzQKz?=
+ =?iso-8859-1?Q?R3GfRE8LuWjjNpGR/2k+j0eLhU+kdkjOP+bzG9TtIC9K8phTCkEn/tXQd2?=
+ =?iso-8859-1?Q?fDD19VOGSz+FzJWusR1Cpi5h+ZlBYmboUZW2fPyo7Wh8sGEiccch2fPJ/8?=
+ =?iso-8859-1?Q?lbqnP3YJVufwoZyFkHS3JjGUXKlu3j+9FUtZ45qjFmELsbLgfm/vMhbSJO?=
+ =?iso-8859-1?Q?eFMG5wkfDTUJpC0GXGwO8zu5VpcdZTU3nIv8h/tTueFxBC+9dLDXScF8p0?=
+ =?iso-8859-1?Q?QLiYIZyDdFCRg7EDcxWbxU59dGWy5eKp/bjM3RKIGo/4+sqzBuojA8kiYI?=
+ =?iso-8859-1?Q?a4QCjY2RgrHKCgAgBupAMFYZSsXNl0q4vh5oWFmVACzKAQ1n/6znsP9v7B?=
+ =?iso-8859-1?Q?10YsJpedGdzND5Bnzp90U9KU51YR0RsgMI+uvDJcN0PDAk/aCVNJsJy4UE?=
+ =?iso-8859-1?Q?sTRSxHY8F9hwMxwATfkQTjPnm/3DOW1GvSjQcpjHf60Sv5qxVo7+uOFsxz?=
+ =?iso-8859-1?Q?rp4Wht52WxGWw2uCAvcClgvaGewXBziCl6prSSvl7w0AyR+rMTwvFkG1/u?=
+ =?iso-8859-1?Q?xQWA=3D=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_PA4PR04MB922315D29F8BB69CD59033E2BE262PA4PR04MB9223eurp_"
+MIME-Version: 1.0
+X-OriginatorOrg: wsi.tum.de
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource:
+ PA4PR04MB9223.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id:
+ d82d6c9e-028f-421b-9951-08dc40557610
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Mar 2024 16:24:57.6335
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: eb712727-7ffb-45ad-81c3-788e90e07ac3
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname:
+ S1m6uqB5YZgzhTuZStFa+4rv0PTaNTdJA6zNPMY80DtVgHDK7WVC+D7FQXAXw9UN5NuPDzF9MveeSRy8KFNoWV1qMqDOUbbd5YtXGTGFeGI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9696
+X-Evolution-Source: 0ae90edb927cc69e2704a1e6ed4e03c47aecce5b
+
+--_000_PA4PR04MB922315D29F8BB69CD59033E2BE262PA4PR04MB9223eurp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: 8bit
+
+Dear Mike,
+
+thank you for the great article, very much appreciated.
+
+Best regards
+Gregor
+
+________________________________
+From: Mike Cooke <drmikecooke@gmail.com>
+Sent: Saturday, March 2, 2024 10:07 PM
+To: Koblmueller Gregor <Gregor.Koblmueller@wsi.tum.de>
+Subject: Low-threshold single ternary GaAsSb nanowire lasers emitting at silicon transparent wavelengths
+
+Dear G. Koblmüller,
+
+I have written a news story on  your group's work:
+
+https://semiconductor-today.com/news_items/2024/mar/tum-010324.shtml
+
+--
+Yours,
+
+Mike Cooke
+Tech journalist
+
+drmikecooke@gmail.com
+
+https://drmikecooke.github.io/
+
+
+
+--_000_PA4PR04MB922315D29F8BB69CD59033E2BE262PA4PR04MB9223eurp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: 8bit
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body>
+<div>Dear Mike,</div>
+<div><br>
+</div>
+<div>thank you for the great article, very much appreciated.</div>
+<div><br>
+</div>
+<div>Best regards&nbsp;</div>
+<div>Gregor&nbsp;</div>
+<br>
+<hr style="display:inline-block;width:98%" tabindex="-1">
+<div id="divRplyFwdMsg" dir="ltr"><font face="Calibri, sans-serif" style="font-size:11pt" color="#000000"><b>From:</b> Mike Cooke &lt;drmikecooke@gmail.com&gt;<br>
+<b>Sent:</b> Saturday, March 2, 2024 10:07 PM<br>
+<b>To:</b> Koblmueller Gregor &lt;Gregor.Koblmueller@wsi.tum.de&gt;<br>
+<b>Subject:</b> Low-threshold single ternary GaAsSb nanowire lasers emitting at silicon transparent wavelengths</font>
+<div>&nbsp;</div>
+</div>
+<div class="BodyFragment"><font size="2"><span style="font-size:11pt;">
+<div class="PlainText">Dear G. Koblmüller,<br>
+<br>
+I have written a news story on&nbsp; your group's work:<br>
+<br>
+<a href="https://semiconductor-today.com/news_items/2024/mar/tum-010324.shtml">https://semiconductor-today.com/news_items/2024/mar/tum-010324.shtml</a><br>
+<br>
+-- <br>
+Yours,<br>
+<br>
+Mike Cooke<br>
+Tech journalist<br>
+<br>
+drmikecooke@gmail.com<br>
+<br>
+<a href="https://drmikecooke.github.io/">https://drmikecooke.github.io/</a><br>
+<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_PA4PR04MB922315D29F8BB69CD59033E2BE262PA4PR04MB9223eurp_--
+
